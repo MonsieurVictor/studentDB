@@ -7,7 +7,7 @@ import java.util.List;
 public interface StudentDao {
 
     String SQL_GET_ALL = "SELECT * FROM " + Student.TABLE_NAME;
-    String SQL_GET_BY_ID = SQL_GET_ALL + " WHERE " + Student.ID_COLUMN;
+    String SQL_GET_BY_ID = SQL_GET_ALL + " WHERE " + Student.ID_COLUMN + "=?";
     String SQL_CREATE = "INSERT INTO " + Student.TABLE_NAME
             + " (" + Student.NAME_COLUMN + ", "
             + Student.FATHERNAME_COLUMN + ", "

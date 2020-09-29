@@ -27,12 +27,12 @@ public class MarkDaoImpl extends AbstractDao implements MarkDao {
     @Override
     public List<Mark> getAll() {
         List<Mark> marks = new ArrayList<>();
-        try(Connection conn = DaoFactory.getConnection(this.getDbType());
-            PreparedStatement stat = conn.prepareStatement(SQL_GET_ALL)) {
+        try (Connection conn = DaoFactory.getConnection(this.getDbType());
+             PreparedStatement stat = conn.prepareStatement(SQL_GET_ALL)) {
             log.info("create connection");
             log.info("create statement");
             ResultSet result = stat.executeQuery();
-            while (result.next()){
+            while (result.next()) {
                 Mark mark = new Mark(result.getInt(Mark.ID_COLUMN),
                         result.getInt(Mark.STUDENT_ID_COLUMN),
                         result.getInt(Mark.SUBJECT_ID_COLUMN),
@@ -47,13 +47,42 @@ public class MarkDaoImpl extends AbstractDao implements MarkDao {
 
     @Override
     public void create(Mark mark) {
-        try(Connection conn = DaoFactory.getConnection(this.getDbType());
-        PreparedStatement stat = conn.prepareStatement(SQL_CREATE)) {
+        try (Connection conn = DaoFactory.getConnection(this.getDbType());
+             PreparedStatement stat = conn.prepareStatement(SQL_CREATE)) {
             log.info("create connection");
             log.info("create statement");
             stat.setInt(1, mark.getStudentId());
             stat.setInt(2, mark.getSubjectId());
             stat.setInt(3, mark.getMark());
+            stat.execute();
+        } catch (SQLException e) {
+            log.error("error", e);
+        }
+    }
+
+    @Override
+    public void update(Mark mark) {
+        try (Connection conn = DaoFactory.getConnection(this.getDbType());
+             PreparedStatement stat = conn.prepareStatement(SQL_UPDATE)) {
+            log.info("create connection");
+            log.info("create statement");
+            stat.setInt(1, mark.getStudentId());
+            stat.setInt(2, mark.getSubjectId());
+            stat.setInt(3, mark.getMark());
+            stat.setInt(4, mark.getId());
+            stat.execute();
+        } catch (SQLException e) {
+            log.error("error", e);
+        }
+    }
+
+    @Override
+    public void delete(Mark mark) {
+        try (Connection conn = DaoFactory.getConnection((this.getDbType()));
+             PreparedStatement stat = conn.prepareStatement(SQL_DELETE)) {
+            log.info("create connection");
+            log.info("create statement");
+            stat.setInt(1, mark.getId());
             stat.execute();
         } catch (SQLException e) {
             log.error("error", e);

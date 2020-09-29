@@ -6,7 +6,7 @@ import ru.com.samosvat.model.Subject;
 import java.util.List;
 
 public interface SubjectDao {
-    String SQL_GET_ALL = "SELECT * FROM " + Subject.NAME_COLUMN;
+    String SQL_GET_ALL = "SELECT * FROM " + Subject.TABLE_NAME;
     String SQL_GET_BY_ID =  SQL_GET_ALL + " WHERE " +  Subject.ID_COLUMN + " = ?";
     String SQL_CREATE = "INSERT INTO " + Subject.TABLE_NAME
             + " (" + Student.NAME_COLUMN + ") "

@@ -104,7 +104,7 @@ public class StudentDaoImpl extends AbstractDao implements StudentDao {
             stat.setString(3, student.getSurName());
             stat.setString(4, student.getAddress());
             stat.setString(5, student.getPhoneNumber());
-            stat.setInt(2, student.getId());
+            stat.setInt(6, student.getId());
             stat.execute();
         } catch (SQLException e) {
             log.error("error", e);
